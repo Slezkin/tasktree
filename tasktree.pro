@@ -35,4 +35,7 @@ HEADERS += \
 FORMS += \
         desk.ui
 
+QMAKE_CXXFLAGS += \
+        -std=c++0x
+
 unix:!macx: LIBS += -lsqlite3
