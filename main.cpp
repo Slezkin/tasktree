@@ -10,11 +10,12 @@ int main(int argc, char *argv[])
     sql_w sql("base.sql");
     table tasks(sql, TableName::Tasks);
     table subjects(sql, TableName::Subjects);
+    table records(sql, TableName::Records);
 
-    tasks.insert("NAME, parent_id", {"Abeevewfrewfrewfrc", 143223});
+    tasks.insert("NAME, parent_task_id", {"Abeevewfrewfrewfrc", 143223});
 
     std::vector<std::vector<std::string>> res;
-    tasks.select("id, NAME, parent_id", "", res);
+    tasks.select("id, NAME, parent_task_id", "", res);
 
 
     for(auto &row : res)
@@ -24,7 +25,7 @@ int main(int argc, char *argv[])
         std::cout << "\n";
     }
 
-    tasks.update(4, {{"Name", "AA"},{"parent_id", "54"}});
+    tasks.update(4, {{"Name", "AA"},{"parent_task_id", "54"}});
 
     return 0;
 

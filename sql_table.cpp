@@ -1,26 +1,40 @@
 #include "sql_table.h"
 
+enum class tasks_flags
+{
+  is_open = 1,
+  is_hierarcy_end = 2,
+  is_actual = 4
+};
+
+enum class subjects_flags
+{
+  is_internal = 1
+};
+
 Table TableStructs[static_cast<int>(TableName::TableNames)]
 {
     {
         "tasks",
 
         "("
-        "id                 INTEGER PRIMARY KEY AUTOINCREMENT,"
-        "name               VARCHAR(255),"
-        "level              INTEGER,"
-        "parent_id          INTEGER,"
-        "is_open            INTEGER,"
-        "is_final           INTEGER,"
-        "is_actual          INTEGER,"
-        "descr              TEXT,"
-        "result             TEXT,"
-        "origin_id          INTEGER,"
-        "dep_list           VARCHAR(255),"
-        "ext_dep_list       VARCHAR(255),"
-        "date_begin         INTEGER,"
-        "date_end           INTEGER,"
-        "date_creation      INTEGER"
+        "id                     INTEGER PRIMARY KEY AUTOINCREMENT,"
+        "name                   VARCHAR(255),"
+        "creation_date          INTEGER,"
+        "start_date             INTEGER,"
+        "flags                  INTEGER,"
+        "level                  INTEGER,"
+        "parent_task_id         INTEGER,"
+        "dependent_task_id      INTEGER,"
+        "source_subject_id      INTEGER,"
+        "blocking_subject_id    INTEGER,"
+        "blocking_start_date    INTEGER,"
+        "blocking_end_date      INTEGER,"
+        "description            TEXT,"
+        "descr_files            BLOB,"
+        "result                 TEXT,"
+        "rslt_files             BLOB,"
+        "finish_date            INT"
         ")"
     },
     {
@@ -29,11 +43,21 @@ Table TableStructs[static_cast<int>(TableName::TableNames)]
         "("
         "id                 INTEGER PRIMARY KEY AUTOINCREMENT,"
         "name               VARCHAR(255),"
-        "level              INTEGER,"
-        "parent_id          INTEGER"
+        "parent_id          INTEGER,"
+        "flags              INTEGER"
         ")"
     },
-    { "", "" },
+    {
+        "records",
+
+        "("
+        "id                 INTEGER PRIMARY KEY AUTOINCREMENT,"
+        "task_id            INTEGER,"
+        "description        TEXT,"
+        "date               INTEGER,"
+        "hours              INTEGER"
+        ")"
+    },
 };
 
 sql_w::sql_w(std::string filename)

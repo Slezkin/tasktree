@@ -11,7 +11,7 @@ enum class TableName
 {
     Tasks = 0,
     Subjects,
-    Days,
+    Records,
     TableNames
 };
 
